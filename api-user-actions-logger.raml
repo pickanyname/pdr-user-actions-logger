@@ -1,0 +1,59 @@
+#%RAML 1.0
+---
+title: PDR User Actions Logger API
+baseUri: http://api.pdr-user-actions-logger/{version}
+version: v1
+
+/auditable-event-type:
+  get:
+    description: Get the available auditable event types
+    responses:
+      200:
+        body:
+          application/json:
+            example: 
+              {
+                securityEvent : 'Auditable security event',
+                registryEvent : 'Auditable registry event'
+              }
+    /security-event:
+      get:
+        description: Get all the available security events
+          queryParameters:
+            auditableEventType:
+              type: string
+              required: true
+              example: 'securityEvent'
+        responses:
+          200:
+            body:
+              application/json:
+                example:
+                  {
+                    signin: 'Sign in event', 
+                    signout: 'Sign out event', 
+                    incorrectPassword: 'Incorrect password event', 
+                    sessionTimeout: 'Session timeout event'
+                  }
+    /registry-event:
+      get:
+        description: Get all the available registry events
+          queryParameters:
+            auditableEventType:
+              type: string
+              required: true
+              example: 'registryEvent'
+        responses:
+          200:
+            body:
+              application/json:
+                example:
+                  {
+                    patientSearch : 'Patient search event',
+                    patientViewing : 'Patient viewing event',
+                    patientCreation : 'Patient creation event',
+                    periodClose : 'Period close event',
+                    hardClose : 'Hard close event',
+                    invoiceGeneration : 'Invoice generation event'
+                  }
+
