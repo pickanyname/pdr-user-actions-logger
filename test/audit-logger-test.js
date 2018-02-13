@@ -1,8 +1,10 @@
-// Unit tests for the User Audit Logging utility
+// Executable expectations (unit tests) for the User Audit Logging utility
+
 const expect = require('chai').expect;
 const auditLogger = require('../user_audit/audit-logger');
 const enumerateObjectProperties = require('../lib/enumerate-object-properties');
 
+const args = {userId: '10001', userName: 'Jane User', ipAddress: '142.231.110.50'};
 
 describe('User audit logger setup', () => {
   describe('Audit log for handling events of the security type', () => {
@@ -50,7 +52,6 @@ describe('User audit logger setup', () => {
   	});
   });
 
-
   describe('Audit log for handling events of the registry type', () => {
   	it("should have event type named 'Auditable security event'", () => {
   	  expect(auditLogger.registryType().securityName).to.be.equal('Auditable registry event');
@@ -90,70 +91,73 @@ describe('User audit logger setup', () => {
 
 });
 
+
+//Expectations pertaining to logging the security events
 describe('User audit logger logs a security event', () => {
   describe('Log a sign in event', () => {
   	it("should receive 'successfully logged user sign in event' response", () => {
-      prop = enumerateObjectProperties.findProperty(auditLogger.signinEventLog(10001));
-  	  expect(prop).to.be.equal('Successfully logged user sign in event for user 10001');
+      prop = enumerateObjectProperties.findProperty(auditLogger.signinEventLog(args));
+  	  expect(prop).to.be.equal('Successfully logged user sign in event for user 10001 (Jane User), from 142.231.110.50');
   	});
   });
   describe('Log a sign out event', () => {
   	it("should receive 'successfully logged user sign out event' response", () => {
-      prop = enumerateObjectProperties.findProperty(auditLogger.signoutEventLog(10001));
-  	  expect(prop).to.be.equal('Successfully logged user sign out event for user 10001');
+      prop = enumerateObjectProperties.findProperty(auditLogger.signoutEventLog(args));
+      expect(prop).to.be.equal('Successfully logged user sign out event for user 10001 (Jane User), from 142.231.110.50');
   	});
   });
   describe('Log an incorrect password event', () => {
   	it("should receive 'successfully logged the incorrect password event' response", () => {
-      prop = enumerateObjectProperties.findProperty(auditLogger.incorrectPasswordEventLog('Joe Public'));
-  	  expect(prop).to.be.equal("Successfully logged incorrect password event for username 'Joe Public'");
+      prop = enumerateObjectProperties.findProperty(auditLogger.incorrectPasswordEventLog(args));
+      expect(prop).to.be.equal('Successfully logged incorrect password event for user 10001 (Jane User), from 142.231.110.50');
   	});
   });
   describe('Log a session timeout event', () => {
   	it("should receive 'successfully logged session timeout event' response", () => {
-      prop = enumerateObjectProperties.findProperty(auditLogger.sessionTimeoutEventLog('Joe Public'));
-  	  expect(prop).to.be.equal("Successfully logged session timeout event for username 'Joe Public'");
+      prop = enumerateObjectProperties.findProperty(auditLogger.sessionTimeoutEventLog(args));
+      expect(prop).to.be.equal('Successfully logged session timeout event for user 10001 (Jane User), from 142.231.110.50');
   	});
   });
 });
 
+//Expectations pertaining to logging the registry events
 describe('User audit logger logs a registry event', () => {
   describe('Log a patient search event', () => {
   	it("should receive 'successfully logged patient search event' response", () => {
   	  parameters = {"firstName": "Joe", "lastName": "Public"};
-      prop = enumerateObjectProperties.findProperty(auditLogger.patientSearchEventLog(parameters));
-  	  expect(prop).to.be.equal("Successfully logged patient search event for parameters " + "'" + JSON.stringify(parameters));
+      prop = enumerateObjectProperties.findProperty(auditLogger.patientSearchEventLog(args, parameters));
+      expect(prop).to.be.equal('Successfully logged patient search event for user 10001 (Jane User), from 142.231.110.50, '  + "'" + JSON.stringify(parameters));
   	});
   });
   describe('Log a patient viewed event', () => {
   	it("should receive 'successfully logged patient viewed event' response", () => {
-      prop = enumerateObjectProperties.findProperty(auditLogger.patientViewedEventLog('Joe Public'));
-  	  //expect(prop).to.be.equal("Successfully logged patient viewed event for username 'Joe Public'");
+      prop = enumerateObjectProperties.findProperty(auditLogger.patientViewedEventLog(args, parameters));
+      expect(prop).to.be.equal('Successfully logged patient viewed event for user 10001 (Jane User), from 142.231.110.50, '  + "'" + JSON.stringify(parameters));
   	});
   });
   describe('Log a patient created event', () => {
   	it("should receive 'successfully logged patient created event' response", () => {
   	  parameters = {"firstName": "Joe", "lastName": "Public"};
-      prop = enumerateObjectProperties.findProperty(auditLogger.patientCreatedEventLog(parameters));
-  	  expect(prop).to.be.equal("Successfully logged patient created event for username " + "'" + JSON.stringify(parameters));
+      prop = enumerateObjectProperties.findProperty(auditLogger.patientCreatedEventLog(args, parameters));
+      expect(prop).to.be.equal('Successfully logged patient created event for user 10001 (Jane User), from 142.231.110.50, '  + "'" + JSON.stringify(parameters));
   	});
   });
   describe('Log a period close event', () => {
   	it("should receive 'successfully logged a period close event' response", () => {
-      prop = enumerateObjectProperties.findProperty(auditLogger.periodCloseEventLog());
-  	  expect(prop).to.be.equal('Successfully logged period close event');
+      prop = enumerateObjectProperties.findProperty(auditLogger.periodCloseEventLog(args));
+      expect(prop).to.be.equal('Successfully logged period close event for user 10001 (Jane User), from 142.231.110.50');
   	});
   });
   describe('Log a hard close event', () => {
   	it("should receive 'successfully logged a hard close event' response", () => {
-      prop = enumerateObjectProperties.findProperty(auditLogger.hardCloseEventLog());
-  	  expect(prop).to.be.equal('Successfully logged hard close event');
+      prop = enumerateObjectProperties.findProperty(auditLogger.hardCloseEventLog(args));
+      expect(prop).to.be.equal('Successfully logged hard close event for user 10001 (Jane User), from 142.231.110.50');
   	});
   });
   describe('Log invoice generated event', () => {
   	it("should receive 'successfully logged invoice generated event' response", () => {
-      prop = enumerateObjectProperties.findProperty(auditLogger.invoiceGeneratedEventLog());
-  	  expect(prop).to.be.equal('Successfully logged invoice generated event');
+      prop = enumerateObjectProperties.findProperty(auditLogger.invoiceGeneratedEventLog(args));
+      expect(prop).to.be.equal('Successfully logged invoice generated event for user 10001 (Jane User), from 142.231.110.50');
   	});
   });
 

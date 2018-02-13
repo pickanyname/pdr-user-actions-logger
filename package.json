@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "start": "micro",
+    "start": "micro -p ${PORT:-3001}",
     "test": "mocha"
   },
   "author": "",

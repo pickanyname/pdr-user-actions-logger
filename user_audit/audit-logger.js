@@ -22,34 +22,34 @@ module.exports = {
   	return auditableRegistryEvents();
   },
 
-  signinEventLog: (userId) => {
-  	return {response: "Successfully logged user sign in event for user " + userId};
+  signinEventLog: (args) => {
+  	return {response: 'Successfully logged user sign in event for user ' + args['userId'] + ' (' + args['userName'] + '), ' + 'from ' + args['ipAddress']};
   },
-  signoutEventLog: (userId) => {
-  	return {response: "Successfully logged user sign out event for user " + userId};
+  signoutEventLog: (args) => {
+    return {response: 'Successfully logged user sign out event for user ' + args['userId'] + ' (' + args['userName'] + '), ' + 'from ' + args['ipAddress']};
   },
-  incorrectPasswordEventLog: (userName) => {
-  	return {response: "Successfully logged incorrect password event for username '" + userName + "'"};
+  incorrectPasswordEventLog: (args) => {
+    return {response: 'Successfully logged incorrect password event for user ' + args['userId'] + ' (' + args['userName'] + '), ' + 'from ' + args['ipAddress']};
   },
-  sessionTimeoutEventLog: (userName) => {
-  	return {response: "Successfully logged session timeout event for username '" + userName + "'"};
+  sessionTimeoutEventLog: (args) => {
+    return {response: 'Successfully logged session timeout event for user ' + args['userId'] + ' (' + args['userName'] + '), ' + 'from ' + args['ipAddress']};
   },
-  patientSearchEventLog: (parameters) => {
-  	return {response: "Successfully logged patient search event for parameters '" + JSON.stringify(parameters)};
+  patientSearchEventLog: (args, parameters) => {
+    return {response: "Successfully logged patient search event for user " + args['userId'] + " (" + args['userName'] + "), " + "from " + args['ipAddress'] + ", '"  + JSON.stringify(parameters)};
   },
-  patientViewedEventLog: (userName) => {
-  	return {response: "Successfully logged patient viewed event for username '" + userName + "'"};
+  patientViewedEventLog: (args, parameters) => {
+    return {response: "Successfully logged patient viewed event for user " + args['userId'] + " (" + args['userName'] + "), " + "from " + args['ipAddress'] + ", '"  + JSON.stringify(parameters)};
   },
-  patientCreatedEventLog: (parameters) => {
-  	return {response: "Successfully logged patient created event for username '" + JSON.stringify(parameters)};
+  patientCreatedEventLog: (args, parameters) => {
+    return {response: "Successfully logged patient created event for user " + args['userId'] + " (" + args['userName'] + "), " + "from " + args['ipAddress'] + ", '"  + JSON.stringify(parameters)};
   },
-  periodCloseEventLog: (userId) => {
-  	return {response: "Successfully logged period close event"};
+  periodCloseEventLog: (args) => {
+    return {response: 'Successfully logged period close event for user ' + args['userId'] + ' (' + args['userName'] + '), ' + 'from ' + args['ipAddress']};
   },
-  hardCloseEventLog: (userId) => {
-  	return {response: "Successfully logged hard close event"};
+  hardCloseEventLog: (args) => {
+    return {response: 'Successfully logged hard close event for user ' + args['userId'] + ' (' + args['userName'] + '), ' + 'from ' + args['ipAddress']};
   },
-  invoiceGeneratedEventLog: (userId) => {
-  	return {response: "Successfully logged invoice generated event"};
+  invoiceGeneratedEventLog: (args) => {
+    return {response: 'Successfully logged invoice generated event for user ' + args['userId'] + ' (' + args['userName'] + '), ' + 'from ' + args['ipAddress']};
   }
 }
