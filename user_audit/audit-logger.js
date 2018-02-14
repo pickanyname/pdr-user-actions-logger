@@ -2,6 +2,7 @@
 const auditableSecurityEvents = require('../auditable_user_events/security-events');
 const auditableRegistryEvents = require('../auditable_user_events/registry-events');
 const enumerateObjectProperties = require('../lib/enumerate-object-properties');
+const persistLogEntries = require('./persistence/persist-log-entries');
 
 module.exports = {
   countEvents: (events) => {
@@ -22,7 +23,9 @@ module.exports = {
   	return auditableRegistryEvents();
   },
 
+  //Actual logging
   signinEventLog: (args) => {
+    persistLogEntries.persistEvent(args);
   	return {response: 'Successfully logged user sign in event for user ' + args['userId'] + ' (' + args['userName'] + '), ' + 'from ' + args['ipAddress']};
   },
   signoutEventLog: (args) => {

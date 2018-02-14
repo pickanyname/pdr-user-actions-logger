@@ -17,6 +17,8 @@
     "mocha": "^5.0.0"
   },
   "dependencies": {
-    "micro": "9.1.0"
+    "micro": "9.1.0",
+    "sequelize": "4.33.4",
+    "tedious": "2.3.1"
   }
 }
