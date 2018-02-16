@@ -57,4 +57,10 @@ Once installed, the service can be run locally as follows:
 
 ```npm run dev```
 
+# How To Contribute
 
+Before making any changes to the repo, make sure to run all unit tests:
+
+```npm test```
+
+Any subsequent changes shouldn't make any of the unit tests fail. Feel free to add more unit tests as you're making changes.
