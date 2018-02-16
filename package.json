@@ -19,6 +19,7 @@
     "mocha": "^5.0.0"
   },
   "dependencies": {
+    "dotenv": "5.0.0",
     "micro": "9.1.0",
     "microrouter": "3.0.0",
     "sequelize": "4.33.4",
