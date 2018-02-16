@@ -25,10 +25,11 @@ module.exports = {
 
   //Actual logging
   signinEventLog: (args) => {
-    persistLogEntries.persistEvent(args);
+    //persistLogEntries.persistEvent(args);
   	return {response: 'Successfully logged user sign in event for user ' + args['userId'] + ' (' + args['userName'] + '), ' + 'from ' + args['ipAddress']};
   },
   signoutEventLog: (args) => {
+    //Persist the event
     return {response: 'Successfully logged user sign out event for user ' + args['userId'] + ' (' + args['userName'] + '), ' + 'from ' + args['ipAddress']};
   },
   incorrectPasswordEventLog: (args) => {

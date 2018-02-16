@@ -5,15 +5,44 @@ const { postrouter, post } = require('microrouter');
 const auditLogger = require('./user_audit/audit-logger');
 const enumerateObjectProperties = require('./lib/enumerate-object-properties');
 
-const signin = (req, res) => {
-  send(res, 200, `Hi there ${req.params.who}`);
+const signin = async (req, res) => {
+  const body = await json(req);
+  const args = {userId: body.userId, userName: body.userName, ipAddress: body.userIp};
+  prop = enumerateObjectProperties.findProperty(auditLogger.signinEventLog(args));
+  if (prop === null) {
+    const err = new Error('Signin event could not be logged');
+    err.statusCode = 500;
+    throw err;
+  }
+  send(res, 201, `${prop}`);
 }
 
 const signout = async (req, res) => {
   const body = await json(req);
   const args = {userId: body.userId, userName: body.userName, ipAddress: body.userIp};
   prop = enumerateObjectProperties.findProperty(auditLogger.signoutEventLog(args));
-  send(res, 201, `Hi there ${prop}`);
+  if (prop === null) {
+    const err = new Error('Signout event could not be logged');
+    err.statusCode = 500;
+    throw err;
+  }
+  send(res, 201, `${prop}`);
+}
+
+const incorrectPassword = async (req, res) => {
+  const body = await json(req);
+  const args = {userId: body.userId, userName: body.userName, ipAddress: body.userIp};
+  prop = enumerateObjectProperties.findProperty(auditLogger.incorrectPasswordEventLog(args));
+  if (prop === null) {
+    const err = new Error('Signout event could not be logged');
+    err.statusCode = 500;
+    throw err;
+  }
+  send(res, 201, `${prop}`);
+}
+
+const testget = (req, res) => {
+  send(res, 200, `Successfully processed HTTP GET ${req.params.who}`);
 }
 
 const notfound = (req, res) => {
@@ -21,12 +50,14 @@ const notfound = (req, res) => {
 }
 
 module.exports = router(
-  get('/signin/:who', signin),
+  get('/testget/:who', testget),
   get('/*', notfound)
 );
 
 module.exports = router(
-  post('/signout', signout)
+  post('/signin', signin),
+  post('/signout', signout),
+  post('/incorrectPassword', incorrectPassword)
 );
 
 //module.exports = async(req, res) => {
