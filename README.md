@@ -51,7 +51,7 @@ Make sure you are using node version 8.9.4.
 
 ```nvm install 8.9.4```
 
-```nmv use 8.9.4```
+```nvm use 8.9.4```
 
 Once installed, the service can be run locally as follows:
 
