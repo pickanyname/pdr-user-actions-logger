@@ -42,7 +42,7 @@ module.exports = {
   },
   patientSearchEventLog: (args) => {
     //persistLogEntries.persistPatientEvent(args, 'Auditable registry event', 'Patient search event', '');
-    return {response: "Successfully logged patient search event for user " + args['userId'] + ' (' + args['userName'] + '), ' + 'from'  + args['ipAddress'] + ', patient search parameters: ' + args['parameters']};
+    return {response: "Successfully logged patient search event for user " + args['userId'] + ' (' + args['userName'] + '), ' + 'from '  + args['ipAddress'] + ', patient search parameters: ' + args['parameters']};
   },
   patientViewedEventLog: (args) => {
     //persistLogEntries.persistPatientEvent(args, 'Auditable registry event', 'Patient viewing event', '');
