@@ -41,4 +41,6 @@ Each HTTP POST request to any of the above end-points must contain the JSON payl
 
 Here is a fictitious example of a well formed JSON payload:
 
+```javascript
 {"userId": "22345TTyuWW", "userName": "MrBookman", "userIp": "10.22.105.11", "parameters": "searchName=Janis Joplin"}
+```
