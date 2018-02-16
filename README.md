@@ -44,3 +44,11 @@ Here is a fictitious example of a well formed JSON payload:
 ```javascript
 {"userId": "22345TTyuWW", "userName": "MrBookman", "userIp": "10.22.105.11", "parameters": "searchName=Janis Joplin"}
 ```
+
+# How To Run Locally
+
+Once installed, the service can be run locally as follows:
+
+npm run dev
+
+

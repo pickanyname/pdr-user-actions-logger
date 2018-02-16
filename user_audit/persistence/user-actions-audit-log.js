@@ -6,7 +6,6 @@ const sqlDatabase = configSequelize.mssql();
 module.exports = {
   log: () => {
     const userActionsAuditLog = sqlDatabase.define('userActionsAuditLogs', {
-      //userActionsAuditLogId: Sequelize.UUIDV4,
       userId: Sequelize.STRING,
       userName: Sequelize.STRING,
       userIp: Sequelize.STRING,
