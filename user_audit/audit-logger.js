@@ -25,7 +25,7 @@ module.exports = {
 
   //Actual logging
   signinEventLog: (args) => {
-    //persistLogEntries.persistEvent(args, 'Auditable security event', 'Sign in event');
+    persistLogEntries.persistEvent(args, 'Auditable security event', 'Sign in event');
   	return {response: 'Successfully logged user sign in event for user ' + args['userId'] + ' (' + args['userName'] + '), ' + 'from ' + args['ipAddress']};
   },
   signoutEventLog: (args) => {

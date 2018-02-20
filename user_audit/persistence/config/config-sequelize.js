@@ -3,7 +3,7 @@ const Sequelize = require('sequelize');
 
 module.exports = {
   mssql: () => {
-    const sqlDatabase = new Sequelize('database', 'username', 'password', {
+    const sqlDatabase = new Sequelize('pdr', 'sa', 'Passw0rd', {
       host: 'localhost',
       dialect: 'mssql',
       pool: {
